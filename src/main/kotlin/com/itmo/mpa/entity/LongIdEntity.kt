@@ -1,7 +1,11 @@
 package com.itmo.mpa.entity
 
+import StringArrayUserType
+import org.hibernate.annotations.TypeDef
+import org.hibernate.annotations.TypeDefs
 import javax.persistence.*
 
+@TypeDef(name = "string-array", typeClass = StringArrayUserType::class)
 @MappedSuperclass
 abstract class LongIdEntity {
 
