@@ -87,6 +87,23 @@ INSERT INTO contradictions (id, medicine_id, created_date, predicate, source) VA
 INSERT INTO contradictions (id, medicine_id, created_date, predicate, source) VALUES (81, 18, '2019-05-25 15:13:07.558578', 'lt({patient.age}, 6)', 'no_source');
 INSERT INTO contradictions (id, medicine_id, created_date, predicate, source) VALUES (82, 19, '2019-05-25 15:13:24.229625', 'lt({patient.age}, 12)', 'no_source');
 
+insert into scale_type(id, name, names_from_scale) values
+(1, 'Шкала частоты возникновения побочных реакций (5 градаций)',
+    '{"Очень часто (более 10%)","Часто (от 1 до 10%)","Менее часто (от 0.1 до 1%)","Редко (от 0.01 до 0.1%)","Очень редко (до 0.01%)"}'),
+(2, 'Шкала тяжести клинического течения (4 градации)',
+    '{"Легкая реакция","Умеренная реакция","Тяжелая реакция","Смертельная реакция"}');
+
+insert into adr(id, name, frequency_of_occurence, the_severity_of_the_clinical_course, id_scale_type_for_the_severity_of_the_clinical_course, id_scale_type_for_occurence_frequency) values
+(1, 'Реакция 1', 2, 1, 2, 1),
+(2, 'Реакция 2', 4, 3, 2, 1);
+
+insert into adr_active_substance(id, adr_id, active_substance_id) values
+(1, 1, 10),
+(2, 1, 11),
+(3, 2, 12),
+(4, 2, 13),
+(5, 2, 14);
+
 --
 
 COMMIT;

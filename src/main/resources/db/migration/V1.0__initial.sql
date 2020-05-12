@@ -221,3 +221,43 @@ create table state_image
         references state (id)
         on update no action on delete cascade
 );
+
+create table scale_type
+(
+    id                      bigserial       primary key,
+    name                    varchar(256)    not null,
+    names_from_scale        varchar(256)[]        not null
+);
+
+create table adr
+(
+    id                                                      bigserial       primary key,
+    name                                                    varchar(256)    not null,
+    frequency_of_occurence                                  bigint          not null,
+    the_severity_of_the_clinical_course                     bigint          not null,
+    id_scale_type_for_the_severity_of_the_clinical_course   bigserial       not null,
+    id_scale_type_for_occurence_frequency                   bigserial       not null,
+
+    constraint adr_scale_type_for_the_severity_fkey foreign key (id_scale_type_for_the_severity_of_the_clinical_course)
+            references scale_type (id)
+            on update no action on delete cascade,
+
+    constraint adr_scale_type_for_occurence_fkey foreign key (id_scale_type_for_occurence_frequency)
+            references scale_type (id)
+            on update no action on delete cascade
+);
+
+create table adr_active_substance
+(
+    id                      bigserial    primary key,
+    adr_id                  bigserial    not null,
+    active_substance_id     bigserial    not null,
+
+    constraint adr_active_substance_adr_id_fkey foreign key (adr_id)
+            references adr (id)
+            on update no action on delete cascade,
+
+    constraint adr_active_substance_active_substance_id_fkey foreign key (active_substance_id)
+            references active_substance (id)
+            on update no action on delete cascade
+);
